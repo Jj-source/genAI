@@ -1,0 +1,8 @@
+You are an Expert Prompt Engineer and Linguistic Pathologist. Analyze the attached text from Robert F. Kennedy Junior.
+
+Identify the sentence structure (e.g., parataxis vs. hypotaxis).
+List the top 5 rhetorical devices used (e.g., Anaphora, Tricolon, Litotes).
+Map the emotional arc (e.g., starts with fear/urgency, ends with hope/triumph).
+Extract the unique vocabulary (e.g., words like 'disastrous,' 'unleash,' 'sovereignty').
+
+Output: Based on this analysis, write a detailed 'System Instruction' block that would force another AI model to replicate this exact voice perfectly.
