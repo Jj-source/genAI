@@ -1,27 +1,45 @@
-#  1. Steps:
+# Explanation
 
-use the initial persona prototype from David
-use the implemetation explanation from Kyzer for Ollama
+## Persona Construction
 
-# 2. Steps:
+In the folder `modelfiles` you can find all modelfiles, which were used to finetune the democrat and republican llm models.
 
-- add a liwc scorecard for each persona
+In order to construct a new llm model use the modelfiles and the following commands:
 
-## 2.1. structure of the prompt as a tip from Gemini 3 (Thinking Mode):
+`ollama create rep-model:your_tag -f YourModelFile.mf`
 
-Layer 1: The Foundation: tells the model how to think, use **principles** and **frame audit instructions**
+`ollama create dem-model:your_tag -f YourModelFile.mf`
 
-Layer 2: The Pattern (few shot transcripts): 2-3 high quality transcript snippets
+Or you use the already uploaded models, which can be accessed at the following links:
+- [Democrat Model](https://ollama.com/nadinekitzwoegerer/dem-model)
+- [Republican Model](https://ollama.com/nadinekitzwoegerer/rep-model)
 
-Layer 3: The Polish: use LIWC + rhetorical devices, use 2-3 specific rhetorical triggers
+## Short instructions to upload a finetuned model to the Ollama cloud
 
-Notes for the project:
-Basic opinion is there
+1. Rename Model:
+If not already done you need to rename your model to also include your username, like this:
+`ollama cp your-custom-model ollama-username/your-custom-model`
 
-Build the frontend and the evaluation part.
+2. Create a new model on the Ollama registry or use an already existing one.
 
-This saturday try connect everything.
+3. Push Model:
+With the command `ollama push ollama-username/your-custom-model` you can send the model to the Ollama registry.
 
-Do the jupyter evaluation notebook.
+Note you can also use tags to distinguish different model versions. Like `ollama-username/rep-model:latest` or `ollama-username/rep-model:v2`. Of course this tag needs to be added to the model name in step 1.
 
-Saturday 7pm next meeting.
+## Persona Evaluation
+
+For the evaluation we choose to:
+1. First generate a set of evaluation prompts: see the file `evaluation_prompts.json`
+    Topics include: healthcare, gun regulations, economic policies, tax policies, immigration
+2. We then gave both democrat and republican models the prompts and saved their responses in a .jsonl file. See here `eval_results/eval_results_MODELTAG.jsonl`.
+    The script for this process is called `evaluation.py`.
+3. Then we run a POLITICS model over the models responses, which gives the response a category:
+    - LABEL_0: means left
+    - LABEL_1: mean neutral
+    - LABEL_2: means right
+    The script that executes this process is called `politics_evaluation.py`. For more information about the used Politics model see this [webpage](https://huggingface.co/matous-volf/political-leaning-politics).
+
+If you directly want to tun the evaluation for a specific model, just execute the following script: `evaluation_pipeline.py`.
+
+The results of the evaluation will be visualized in the notebook `persona_evaluation.ipynb`.
