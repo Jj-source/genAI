@@ -3,7 +3,7 @@ from politics_evalution import *
 import os
 
 # specify which model you want to evaluate
-MODEL_TAG           = "v2"
+MODEL_TAG           = "v3.1"
 
 EVAL_FOLDER         = "eval_results"
 
